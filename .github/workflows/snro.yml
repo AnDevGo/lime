@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: tgymnich/fork-sync@v2.0.10
         with:
-          token: ${{ secrets.ME_TOKEN }}
+          token: ${{ secrets.MY_NAME }}
           owner: th2l-devs
           base: main
           head: main
