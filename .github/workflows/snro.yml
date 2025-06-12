@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: tgymnich/fork-sync@v2.0
+      - uses: tgymnich/fork-sync@v2.0.10
         with:
           token: ${{ secrets.Forks }}
-          owner: HomuHomu833
+          owner: th2l-devs
           base: main
           head: main
