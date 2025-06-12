@@ -13,6 +13,6 @@ jobs:
       - name: Sync with upstream
         uses: TG908/fork-sync@v1
         with:
-          github_token: ${{ secrets.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 }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           upstream: th2l-devs/lime  # 替换为上游仓库
           branch: main  # 要同步的分支
