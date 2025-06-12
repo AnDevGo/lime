@@ -2,17 +2,18 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '0 */3 * * *'  # 每 3 小时检查一次
-  workflow_dispatch:  # 允许手动触发
+    - cron: '*/30 * * * *' # every 30 minutes
+  workflow_dispatch: # on button click
 
 jobs:
   sync:
+
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Sync with upstream
-        uses: TG908/fork-sync@v1
+      - uses: tgymnich/fork-sync@v2.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          upstream: th2l-devs/lime  # 替换为上游仓库
-          branch: main  # 要同步的分支
+          token: ${{ secrets.Forks }}
+          owner: HomuHomu833
+          base: main
+          head: main
