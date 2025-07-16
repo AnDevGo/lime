@@ -82,8 +82,6 @@ class NativeApplication
 		pauseTimer = -1;
 		toggleFullscreen = true;
 
-		AudioManager.init();
-
 		#if (ios || android || tvos)
 		Sensor.registerSensor(SensorType.ACCELEROMETER, 0);
 		#end
@@ -94,6 +92,8 @@ class NativeApplication
 		deviceOrientationListener = new OrientationChangeListener(handleJNIOrientationEvent);
 		setDeviceOrientationListener(deviceOrientationListener);
 		#end
+
+		AudioManager.init();
 
 		#if (!macro && lime_cffi)
 		handle = NativeCFFI.lime_application_create();
