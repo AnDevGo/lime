@@ -445,15 +445,9 @@ class MacPlatform extends PlatformTarget
 			project.haxeflags.push("-xml " + targetDirectory + "/types.xml");
 		}
 
-		for (asset in project.assets)
+		if (project.targetFlags.exists("json"))
 		{
-			if (asset.embed && asset.sourcePath == "")
-			{
-				var path = Path.combine(targetDirectory + "/obj/tmp", asset.targetPath);
-				System.mkdir(Path.directory(path));
-				AssetHelper.copyAsset(asset, path);
-				asset.sourcePath = path;
-			}
+			project.haxeflags.push("--json " + targetDirectory + "/types.json");
 		}
 
 		var context = generateContext();
@@ -504,22 +498,7 @@ class MacPlatform extends PlatformTarget
 
 		context.HAS_ICON = IconHelper.createMacIcon(icons, Path.combine(contentDirectory, "icon.icns"));
 
-		for (asset in project.assets)
-		{
-			if (asset.embed != true)
-			{
-				if (asset.type != AssetType.TEMPLATE)
-				{
-					System.mkdir(Path.directory(Path.combine(contentDirectory, asset.targetPath)));
-					AssetHelper.copyAssetIfNewer(asset, Path.combine(contentDirectory, asset.targetPath));
-				}
-				else
-				{
-					System.mkdir(Path.directory(Path.combine(targetDirectory, asset.targetPath)));
-					AssetHelper.copyAsset(asset, Path.combine(targetDirectory, asset.targetPath), context);
-				}
-			}
-		}
+		copyProjectAssets(targetDirectory, contentDirectory);
 	}
 
 	public override function watch():Void

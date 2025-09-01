@@ -176,7 +176,7 @@ class IOSPlatform extends PlatformTarget
 		{
 			project.haxeflags.push("-xml " + targetDirectory + "/types.xml");
 		}
-		
+
 		if (project.targetFlags.exists("json"))
 		{
 			project.haxeflags.push("--json " + targetDirectory + "/types.json");
@@ -551,17 +551,6 @@ class IOSPlatform extends PlatformTarget
 
 		// project = project.clone ();
 
-		for (asset in project.assets)
-		{
-			if (asset.embed && asset.sourcePath == "")
-			{
-				var path = Path.combine(targetDirectory + "/" + project.app.file + "/obj/tmp", asset.targetPath);
-				System.mkdir(Path.directory(path));
-				AssetHelper.copyAsset(asset, path);
-				asset.sourcePath = path;
-			}
-		}
-
 		// var manifest = new Asset ();
 		// manifest.id = "__manifest__";
 		// manifest.data = AssetHelper.createManifest (project).serialize ();
@@ -889,27 +878,7 @@ class IOSPlatform extends PlatformTarget
 				}
 			}
 		}
-
-		System.mkdir(projectDirectory + "/assets");
-
-		for (asset in project.assets)
-		{
-			if (asset.embed != true)
-			{
-				if (asset.type != AssetType.TEMPLATE)
-				{
-					var targetPath = Path.combine(projectDirectory + "/assets/", asset.resourceName);
-					System.mkdir(Path.directory(targetPath));
-					AssetHelper.copyAssetIfNewer(asset, targetPath);
-				}
-				else
-				{
-					var targetPath = Path.combine(projectDirectory, asset.targetPath);
-					System.mkdir(Path.directory(targetPath));
-					AssetHelper.copyAsset(asset, targetPath, context);
-				}
-			}
-		}
+		copyProjectAssets(projectDirectory, "assets");
 
 		if (project.targetFlags.exists("xcode") && System.hostPlatform == MAC && command == "update")
 		{

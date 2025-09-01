@@ -422,17 +422,6 @@ class AndroidPlatform extends PlatformTarget
 
 		// project = project.clone ();
 
-		for (asset in project.assets)
-		{
-			if (asset.embed && asset.sourcePath == "")
-			{
-				var path = Path.combine(targetDirectory + "/obj/tmp", asset.targetPath);
-				System.mkdir(Path.directory(path));
-				AssetHelper.copyAsset(asset, path);
-				asset.sourcePath = path;
-			}
-		}
-
 		// initialize (project);
 
 		var destination = targetDirectory + "/bin";
@@ -666,13 +655,13 @@ class AndroidPlatform extends PlatformTarget
 
 		for (asset in project.assets)
 		{
-			if (asset.embed != true && asset.type == AssetType.TEMPLATE)
+			if (asset.type != AssetType.TEMPLATE)
 			{
-				var targetPath = Path.combine(destination, asset.targetPath);
-				System.mkdir(Path.directory(targetPath));
-				AssetHelper.copyAsset(asset, targetPath, context);
+				asset.targetPath = asset.resourceName;
 			}
 		}
+
+		copyProjectAssets(destination, sourceSet + "/assets/");
 	}
 
 	public override function watch():Void
