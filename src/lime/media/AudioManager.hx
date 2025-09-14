@@ -194,26 +194,26 @@ class AudioManager
 	private static function setupConfig():Void
 	{
 		#if (lime_openal && (windows || mac || linux || android))
-		final configContent:Array<String> = [];
+		final alConfig:Array<String> = [];
 
-		configContent.push('[general]');
+		alConfig.push('[general]');
 
-		configContent.push('channels=stereo');
-		configContent.push('sample-type=float32');
-		configContent.push('stereo-mode=speakers');
-		configContent.push('stereo-encoding=panpot');
-		configContent.push('hrtf=false');
-		configContent.push('cf_level=0');
-		configContent.push('resampler=fast_bsinc24');
-		configContent.push('front-stablizer=false');
-		configContent.push('output-limiter=false');
-		configContent.push('volume-adjust=0');
+		alConfig.push('channels=stereo');
+		alConfig.push('sample-type=float32');
+		alConfig.push('stereo-mode=speakers');
+		alConfig.push('stereo-encoding=panpot');
+		alConfig.push('hrtf=false');
+		alConfig.push('cf_level=0');
+		alConfig.push('resampler=fast_bsinc24');
+		alConfig.push('front-stablizer=false');
+		alConfig.push('output-limiter=false');
+		alConfig.push('volume-adjust=0');
 
-		configContent.push('[decoder]');
+		alConfig.push('[decoder]');
 
-		configContent.push('hq-mode=false');
-		configContent.push('distance-comp=false');
-		configContent.push('nfc=false');
+		alConfig.push('hq-mode=false');
+		alConfig.push('distance-comp=false');
+		alConfig.push('nfc=false');
 
 		try
 		{
