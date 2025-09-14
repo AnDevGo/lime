@@ -187,6 +187,7 @@ class AudioManager
 			// called on the main thread.
 			__audioDeviceChanged = true;
 		}
+		#end
 	}
 
 	@:noCompletion
@@ -216,11 +217,9 @@ class AudioManager
 
 		try
 		{
-			#if (windows || mac || linux)
-			final directory:String = Path.directory(Path.withoutExtension(Sys.programPath()));
-			#elseif android
 			final directory:String = Path.directory(Path.withoutExtension(System.applicationStorageDirectory));
-			#end
+			final path:String = Path.join([directory, #if windows 'audio-config.ini' #else 'audio-config.conf' #end]);
+			final content:String = alConfig.join('\n');
 
 			if (!FileSystem.exists(directory))
 				FileSystem.createDirectory(directory);
@@ -228,7 +227,7 @@ class AudioManager
 			final path:String = Path.join([directory, #if windows 'audio-config.ini' #else 'audio-config.conf' #end]);
 
 			if (!FileSystem.exists(path))
-				File.saveContent(path, configContent.join('\n'));
+				File.saveContent(path, content);
 
 			Sys.println(path);
 
