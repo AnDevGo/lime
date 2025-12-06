@@ -39,9 +39,11 @@ class AudioManager
 				#if !lime_doc_gen
 				if (context.type == OPENAL)
 				{
+					/*
 					#if (windows || mac || linux || android)
 					setupConfig();
 					#end
+					*/
 
 					var alc = context.openal;
 					var device = alc.openDevice();
@@ -193,7 +195,7 @@ class AudioManager
 	@:noCompletion
 	private static function setupConfig():Void
 	{
-		#if (lime_openal && (windows || mac || linux || android))
+		#if (windows || mac || linux || android || ios)
 		final alConfig:Array<String> = [];
 
 		alConfig.push('[general]');
@@ -218,16 +220,12 @@ class AudioManager
 		try
 		{
 			final directory:String = Path.directory(Path.withoutExtension(System.applicationStorageDirectory));
-			final path:String = Path.join([directory, #if windows 'audio-config.ini' #else 'audio-config.conf' #end]);
+			final path:String = Path.join([directory, #if windows 'alsoft.ini' #else 'alsoft.conf' #end]);
 			final content:String = alConfig.join('\n');
 
-			if (!FileSystem.exists(directory))
-				FileSystem.createDirectory(directory);
+			if (!FileSystem.exists(directory)) FileSystem.createDirectory(directory);
 
-			final path:String = Path.join([directory, #if windows 'audio-config.ini' #else 'audio-config.conf' #end]);
-
-			if (!FileSystem.exists(path))
-				File.saveContent(path, content);
+			if (!FileSystem.exists(path)) File.saveContent(path, content);
 
 			Sys.println(path);
 
