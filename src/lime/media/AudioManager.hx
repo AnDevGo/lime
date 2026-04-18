@@ -39,12 +39,6 @@ class AudioManager
 				#if !lime_doc_gen
 				if (context.type == OPENAL)
 				{
-					/*
-					#if (windows || mac || linux || android)
-					setupConfig();
-					#end
-					*/
-
 					var alc = context.openal;
 					var device = alc.openDevice();
 					var ctx = alc.createContext(device);
@@ -189,49 +183,6 @@ class AudioManager
 			// called on the main thread.
 			__audioDeviceChanged = true;
 		}
-		#end
-	}
-
-	@:noCompletion
-	private static function setupConfig():Void
-	{
-		#if (windows || mac || linux || android || ios)
-		final alConfig:Array<String> = [];
-
-		alConfig.push('[general]');
-
-		alConfig.push('channels=stereo');
-		alConfig.push('sample-type=float32');
-		alConfig.push('stereo-mode=speakers');
-		alConfig.push('stereo-encoding=panpot');
-		alConfig.push('hrtf=false');
-		alConfig.push('cf_level=0');
-		alConfig.push('resampler=fast_bsinc24');
-		alConfig.push('front-stablizer=false');
-		alConfig.push('output-limiter=false');
-		alConfig.push('volume-adjust=0');
-
-		alConfig.push('[decoder]');
-
-		alConfig.push('hq-mode=false');
-		alConfig.push('distance-comp=false');
-		alConfig.push('nfc=false');
-
-		try
-		{
-			final directory:String = Path.directory(Path.withoutExtension(System.applicationStorageDirectory));
-			final path:String = Path.join([directory, #if windows 'alsoft.ini' #else 'alsoft.conf' #end]);
-			final content:String = alConfig.join('\n');
-
-			if (!FileSystem.exists(directory)) FileSystem.createDirectory(directory);
-
-			if (!FileSystem.exists(path)) File.saveContent(path, content);
-
-			Sys.println(path);
-
-			Sys.putEnv('ALSOFT_CONF', path);
-		}
-		catch (e:Dynamic) {}
 		#end
 	}
 }

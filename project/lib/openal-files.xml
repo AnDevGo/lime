@@ -33,7 +33,7 @@
         <file name="${NATIVE_TOOLKIT_PATH}/openal/Alc/context.cpp" />
         <file name="${NATIVE_TOOLKIT_PATH}/openal/Alc/device.cpp" />
         <file name="${NATIVE_TOOLKIT_PATH}/openal/core/device.cpp" />
-        <file name="${NATIVE_TOOLKIT_PATH}/openal/Alc/alconfig.cpp" />
+        <file name="${NATIVE_TOOLKIT_PATH}/custom/openal/alc/alconfig.cpp" />
         <file name="${NATIVE_TOOLKIT_PATH}/openal/Alc/alu.cpp" />
         <file name="${NATIVE_TOOLKIT_PATH}/openal/core/ambdec.cpp" />
         <file name="${NATIVE_TOOLKIT_PATH}/openal/core/ambidefs.cpp" />
