@@ -99,10 +99,12 @@ class PlatformTarget
 		if (command == "update" || command == "build" || command == "test")
 		{
 			logCommand("update");
-			// #if lime
-			// AssetHelper.processLibraries (project, targetDirectory);
-			// #end
+
+			_touchedFiles = [];
 			update();
+
+			deleteStaleFiles(_touchedFiles);
+			_touchedFiles = null;
 		}
 
 		if (command == "build" || command == "test")
